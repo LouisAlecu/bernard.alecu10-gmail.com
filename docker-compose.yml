@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  sp_db:
+    build:
+      dockerfile: ./Dockerfile_sp_db
+      context: ./sp_db_init_volume
+    image: sp_db
+    container_name: sp_db_c1
+    networks:
+      - internal_network
+    volumes:
+      - ./sp_db_init_volume:/docker-entrypoint-initdb.d/
+      - ./sp_db_data_volume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    expose: [5432]
+  # sp_app:
+  #   build:
+  #     dockerfile: Dockerfile_sp_app
+  #     context: ./sp_app
+  #   image: sp_app
+  #   container_name: sp_app_c1
+  #   networks:
+  #     - internal_network
+  #   entrypoint: python3 /sp_app/app.py
+  #   volumes:
+  #     - ./sp_app:/sp_app
+  #   env_file:
+  #     - ./config.env
+  #   ports:
+  #     - "5000:5000"
+
+networks:
+  internal_network:
+    driver: bridge
