@@ -3,7 +3,7 @@ create database sp;
 
 create schema sp_schema;
 
-drop table if exists sp_schema.company cascade;
+drop table if exists sp_schema.company;
 create table sp_schema.company (
     company_name                 text
     ,company_jurisdiction_code   varchar(10)
@@ -29,26 +29,33 @@ create table sp_schema.company (
     ,native_company_number       text
 
     ,primary key(company_name, company_jurisdiction_code)
+    ,unique(company_name, company_jurisdiction_code)
 );
 
+drop table if exists sp_schema.company_address;
 create table sp_schema.company_address (
     id                              serial not null primary key
-    ,company_name                   text not null references sp_schema.company(company_name)
-    ,company_jurisdiction_code      text not null references sp_schema.company(company_jurisdiction_code)
+    ,company_name                   text not null
+    ,company_jurisdiction_code      text not null
     ,street_address                 text
     ,locality                       text
     ,region                         text
     ,postal_code                    text
     ,country                        text
+
+    ,foreign key(company_name, company_jurisdiction_code) references sp_schema.company(company_name, company_jurisdiction_code)
 );
 
+drop table if exists sp_schema.company_source;
 create table sp_schema.company_source (
     id                              serial not null primary key
-    ,company_name                   text not null references sp_schema.company(company_name)
-    ,company_jurisdiction_code      text not null references sp_schema.company(company_jurisdiction_code)
+    ,company_name                   text not null
+    ,company_jurisdiction_code      text not null
     ,publisher                      text
     ,url                            text
     ,retrieved_at                   timestamptz
     ,terms                          text
     ,terms_url                      text
+
+    ,foreign key(company_name, company_jurisdiction_code) references sp_schema.company(company_name, company_jurisdiction_code)
 );
