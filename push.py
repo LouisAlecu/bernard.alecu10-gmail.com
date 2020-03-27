@@ -6,3 +6,4 @@ client.GET_req(endpoint = '/companies/search', params = {'q': 'smart'})
 
 with open('./sp_file_db/data.json', 'w') as f:
     json.dump(client.response.json(), f)
+
