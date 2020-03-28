@@ -88,11 +88,11 @@ class DbConnecter:
 def connect_to_database(config=None):
     if (config is None):
         config = {
-            'db_host': os.environ['FANTASY_PI_DB_HOST'],
-            'db_name': os.environ['FANTASY_PI_DB_NAME'],
-            'db_user': os.environ['FANTASY_PI_DB_USER'],
-            'db_pass': os.environ['FANTASY_PI_DB_PASS'],
-            'db_port': int(os.environ['FANTASY_PI_DB_PORT'])
+            'db_host': os.environ['SP_DB_HOST'],
+            'db_name': os.environ['SP_DB_NAME'],
+            'db_user': os.environ['SP_DB_USER'],
+            'db_pass': os.environ['SP_DB_PORT'],
+            'db_port': int(os.environ['SP_DB_PASS'])
         }
     db_con = DbConnecter(config)
 
