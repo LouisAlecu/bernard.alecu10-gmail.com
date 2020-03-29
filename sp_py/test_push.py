@@ -3,6 +3,11 @@ import pandas as pd
 
 
 def test_flatten_df():
+    """
+    Does it flatten the columns for a json string column? 
+    It is a string because that is how we read it from csv as it is dumped
+    with json library in order to be able to upload it to postgres array literals.
+    """
     x = pd.DataFrame(
         {
             "col1": [1, 2, 3],
