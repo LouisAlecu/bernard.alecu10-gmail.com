@@ -32,7 +32,7 @@ def main():
     source = flatten_df(
         company[["jurisdiction_code", "company_number", "source"]], "source"
     )
-
+    print(company['source'])
     con = connect_to_database(config)
     company.to_sql(
         name="company",

@@ -4,10 +4,6 @@ create database sp;
 create schema sp_schema;
 
 
--- branch,branch_status,company_number,company_type,created_at,current_status,dissolution_date,inactive,
--- incorporation_date,industry_codes,jurisdiction_code,name,native_company_number,
--- opencorporates_url,previous_names,registered_address,registered_address_in_full,registry_url,restricted_for_marketing,retrieved_at,source,updated_at
-
 drop table if exists sp_schema.company;
 create table sp_schema.company (
     id                           serial not null primary key

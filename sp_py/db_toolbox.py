@@ -4,6 +4,7 @@ import os
 
 class DbConnecter:
     def __init__(self, config):
+        """Initialize the attributes with the given config. Tries to establish connection."""
         self.config = config
         self.db_host = config["db_host"]
         self.db_name = config["db_name"]
@@ -17,16 +18,12 @@ class DbConnecter:
         self._establish_connection_()
 
     def __del__(self):
-
+        """Closes the connection on class destructor."""
         self.db_con.close()
         print("Connection has been closed.")
 
-    def commit_changes(self):
-
-        self.db_con.commit()
-
     def _establish_connection_(self):
-
+        """Establish connection and makes the cursor and connection attributes."""
         self.engine = create_engine(
             "postgresql://"
             + self.db_user
@@ -44,11 +41,16 @@ class DbConnecter:
         self.db_cur = self.db_con.cursor()
 
     def execute_query(self, query):
+        """
+        Executes a query in the database. Because of how sqlalchemy works, 
+        the transaction is committed automatically. Autocommit can be set 
+        to off manually.
+        """
         print(query)
         self.db_cur.execute(query)
 
     def read_query(self, query):
-
+        """Returns the result of a query."""
         self.db_cur.execute(query)
         result = self.db_cur.fetchall()
 
@@ -56,6 +58,11 @@ class DbConnecter:
 
 
 def connect_to_database(config=None):
+    """
+    Returns an object with a connection to the specified database.
+    If config is not specified it tried to check in the environment
+    for the database configuration.
+    """
     if config is None:
         config = {
             "db_host": os.environ["SP_DB_HOST"],
