@@ -1,6 +1,6 @@
 from sp_py.api_handler import ApiClient
 import pandas as pd
-from config import sp_file_db
+from sp_py.db_toolbox import get_config
 import json
 import sys
 
@@ -17,6 +17,7 @@ def get_ultimate_beneficial_owners(pd_series, client):
 
 
 def main():
+    config, sp_file_db = get_config()
     client = ApiClient("https://api.opencorporates.com", "v0.4", api_token=None)
     client.GET_companies_search(params={"q": "smart"})
     data = client.get_json()["results"]["companies"]

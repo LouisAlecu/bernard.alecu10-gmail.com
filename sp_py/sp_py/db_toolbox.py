@@ -56,6 +56,18 @@ class DbConnecter:
 
         return result
 
+def get_config():
+    config = {
+            "db_host": os.environ["SP_DB_HOST"],
+            "db_name": os.environ["SP_DB_NAME"],
+            "db_user": os.environ["SP_DB_USER"],
+            "db_pass": os.environ["SP_DB_PASS"],
+            "db_port": int(os.environ["SP_DB_PORT"]),
+        }
+    sp_file_db = os.environ["SP_FILE_DB"]
+
+    return config, sp_file_db
+
 
 def connect_to_database(config=None):
     """
@@ -64,13 +76,7 @@ def connect_to_database(config=None):
     for the database configuration.
     """
     if config is None:
-        config = {
-            "db_host": os.environ["SP_DB_HOST"],
-            "db_name": os.environ["SP_DB_NAME"],
-            "db_user": os.environ["SP_DB_USER"],
-            "db_pass": os.environ["SP_DB_PORT"],
-            "db_port": int(os.environ["SP_DB_PASS"]),
-        }
+        config, sp_file_db = get_config()
     db_con = DbConnecter(config)
 
     return db_con

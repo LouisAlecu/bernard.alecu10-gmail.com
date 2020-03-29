@@ -1,4 +1,4 @@
-from push import flatten_df
+from sp_py.push import flatten_df
 import pandas as pd
 
 

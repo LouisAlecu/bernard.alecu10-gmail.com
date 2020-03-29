@@ -1,8 +1,7 @@
 import csv
 import numpy as np
 import pandas as pd
-from db_toolbox import connect_to_database
-from config import config, sp_file_db
+from sp_py.db_toolbox import connect_to_database, get_config
 import json
 
 pd.options.mode.chained_assignment = None
@@ -20,6 +19,7 @@ def flatten_df(df, col):
 
 
 def main():
+    config, sp_file_db = get_config()
     with open(f"{sp_file_db}/data.csv", "r") as f:
         reader = csv.reader(f)
         company = [tuple(line) for line in csv.reader(f)]
