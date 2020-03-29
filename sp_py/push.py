@@ -4,7 +4,9 @@ import pandas as pd
 from db_toolbox import connect_to_database
 from config import config, sp_file_db
 import json
+
 pd.options.mode.chained_assignment = None
+
 
 def flatten_df(df, col):
     for i, row in df.iterrows():
@@ -32,7 +34,7 @@ def main():
     source = flatten_df(
         company[["jurisdiction_code", "company_number", "source"]], "source"
     )
-    print(company['source'])
+    print(company["source"])
     con = connect_to_database(config)
     company.to_sql(
         name="company",

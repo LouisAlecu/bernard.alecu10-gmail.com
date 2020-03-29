@@ -6,4 +6,4 @@ config = {
     "db_pass": "",
 }
 
-sp_file_db = './sp_file_db'
+sp_file_db = "./sp_file_db"
