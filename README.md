@@ -3,6 +3,12 @@ Requirements:
     Docker and Docker Compose for the database utility
     Python3.6
     CMake if you want to run and test it easier
+    Create a new python environment and install the requirements.txt from sp_py package
+    To do the above and use SQLAlchemy from python you might need this:
+        sudo apt install libpq-dev python3-dev
+    If the above is not enough to install the requirements.txt:
+        sudo apt install build-essential
+
 The way to use this:
     If you have CMake:
        1. make build  --- to create the database
