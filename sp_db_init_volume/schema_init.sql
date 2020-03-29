@@ -25,14 +25,17 @@ create table sp_schema.company (
     ,created_at                  timestamptz
     ,updated_at                  timestamptz
     ,retrieved_at                timestamptz
-    ,source                      jsonb default '{}'::jsonb
-    ,registered_address          jsonb default '{}'::jsonb
-    ,registered_address_in_full  text
     ,opencorporates_url          text
     ,restricted_for_marketing    boolean
     ,native_company_number       text
+    ,registered_address_in_full  text
+    ,registered_address          jsonb default '{}'::jsonb
+    ,source                      jsonb default '{}'::jsonb
+    ,previous_names              jsonb default '{}'::jsonb
+    ,industry_codes              jsonb default '{}'::jsonb           
+    ,ultimate_beneficial_owners  jsonb default '{}'::jsonb
 
-    ,unique(name, jurisdiction_code)
+    ,unique(company_number, jurisdiction_code)
 
 );
 
@@ -40,7 +43,7 @@ create table sp_schema.company (
 drop table if exists sp_schema.registered_address;
 create table sp_schema.registered_address (
     id                              serial not null primary key
-    ,name                           text not null
+    ,company_number                 text not null
     ,jurisdiction_code              text not null
     ,street_address                 text
     ,locality                       text
@@ -48,13 +51,14 @@ create table sp_schema.registered_address (
     ,postal_code                    text
     ,country                        text
 
-    ,foreign key(name, jurisdiction_code) references sp_schema.company(name, jurisdiction_code)
+    ,foreign key(company_number, jurisdiction_code) references sp_schema.company(company_number, jurisdiction_code)
 );
+
 
 drop table if exists sp_schema.source;
 create table sp_schema.source (
     id                              serial not null primary key
-    ,name                           text not null
+    ,company_number                 text not null
     ,jurisdiction_code              text not null
     ,publisher                      text
     ,url                            text
@@ -62,5 +66,5 @@ create table sp_schema.source (
     ,terms                          text
     ,terms_url                      text
 
-    ,foreign key(name, jurisdiction_code) references sp_schema.company(name, jurisdiction_code)
+    ,foreign key(company_number, jurisdiction_code) references sp_schema.company(company_number, jurisdiction_code)
 );
