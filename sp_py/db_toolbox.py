@@ -1,4 +1,5 @@
-import pg8000 as pg
+# import pg8000 as pg
+from sqlalchemy import create_engine
 import os
 
 
@@ -10,6 +11,7 @@ class DbConnecter:
         self.db_user = config["db_user"]
         self.db_pass = config["db_pass"]
         self.db_port = config["db_port"]
+        self.engine = None
         self.db_con = None
         self.db_cur = None
         print(self.db_host)
@@ -31,15 +33,19 @@ class DbConnecter:
 
     def _establish_connection_(self):
 
-        self.db_con = pg.connect(
-            host=self.db_host,
-            port=self.db_port,
-            database=self.db_name,
-            user=self.db_user,
-            password=self.db_pass,
-        )
+        self.engine = create_engine('postgresql://' + self.db_user + ':'+self.db_pass+'@' + self.db_host + ':' + str(self.db_port) + '/' + self.db_name, echo=False)
+        self.db_con = self.engine.raw_connection()
         self.db_cur = self.db_con.cursor()
-        print("Connection has been established.")
+
+        # self.db_con = pg.connect(
+        #     host=self.db_host,
+        #     port=self.db_port,
+        #     database=self.db_name,
+        #     user=self.db_user,
+        #     password=self.db_pass,
+        # )
+        # self.db_cur = self.db_con.cursor()
+        # print("Connection has been established.")
 
     def execute_query(self, query):
         print(query)

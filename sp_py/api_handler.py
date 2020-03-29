@@ -1,4 +1,5 @@
 import requests
+import logging
 
 class ApiClient:
     def __init__(self, url, version, api_token = None):

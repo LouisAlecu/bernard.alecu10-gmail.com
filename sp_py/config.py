@@ -5,3 +5,5 @@ config = {
     "db_port": 5433,
     "db_pass": "",
 }
+
+sp_file_db = './sp_file_db'
