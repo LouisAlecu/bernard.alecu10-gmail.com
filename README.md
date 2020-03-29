@@ -1,5 +1,28 @@
 # SP-API
-sp
+Requirements: 
+    Docker and Docker Compose for the database utility
+    Python3.6
+    CMake if you want to run and test it easier
+The way to use this:
+    If you have CMake:
+       1. make build  --- to create the database
+       2. make test  --- to check the python tests
+       3. bash run_process.sh  --- to actually get the data and upload it in the database (to be run after make build)
+    If you do not have CMake:
+       1. docker-compose up -d 
+       2. pytest --ignore=sp_db_data_volume
+       3. bash run_process.sh
+      
+    Regardless of whether you have CMake:
+       4. docker exec -it sp_db_c1 sh  --- to get inside the containe
+       5. psql sp postgres   --- to connect to the database called sp with the username called postgres
+       6. select * from sp_schema.company;
+       7. select * from sp_schema.registered_address;
+       8. select * from sp_schema.source;
+
+
+
+#####################################################################################
 Query an api (http://api.opencorporates.com/documentation/API-Reference). You will need to:
     • Query the api for a list of companies that have the word “smart” in their name
     • Retrieve details about each of these companies including (but not limited to):

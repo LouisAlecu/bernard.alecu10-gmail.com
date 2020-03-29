@@ -7,7 +7,6 @@ import sys
 
 def get_ultimate_beneficial_owners(pd_series, client):
     client.GET_company(pd_series.jurisdiction_code, pd_series.company_number)
-    print(client.get_json()["results"]["company"]["ultimate_beneficial_owners"])
     ubo = client.get_json()["results"]["company"]["ultimate_beneficial_owners"]
     pd_series["ultimate_beneficial_owners"] = (
         json.dumps({"values": ubo}) if ubo else json.dumps({"values": []})
@@ -40,7 +39,7 @@ def main():
     )
     df["inactive"] = df["inactive"].astype(bool)
 
-    df = df.head(2)
+    df = df.head(10)
 
     client = ApiClient("https://api.opencorporates.com", "v0.4", api_token=None)
     df["ultimate_beneficial_owners"] = ""
